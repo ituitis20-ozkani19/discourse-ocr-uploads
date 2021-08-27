@@ -1,0 +1,15 @@
+{{#if siteSettings.discourse_ocr_uploads_enabled}}
+  <h3>{{i18n "ocr_uploads.title"}}</h3>
+  <section class="field">
+    <div class="enable-ocr-uploads">
+      <label class="checkbox-label">
+        {{input
+          type="checkbox"
+          checked=(readonly category.enable_ocr_uploads)
+          change=(action "onChangeSetting" value="target.checked")
+        }}
+        {{i18n "ocr_uploads.enable_ocr_uploads"}}
+      </label>
+    </div>
+  </section>
+{{/if}}

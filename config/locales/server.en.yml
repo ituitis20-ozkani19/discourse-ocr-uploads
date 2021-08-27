@@ -1,0 +1,6 @@
+en:
+  site_settings:
+    discourse_ocr_uploads_enabled: "Enable OCR uploads plugin."
+  ocr_uploads:
+    title: "OCR Uploads."
+    enable_ocr_uploads: "Perform handwriting OCR on the first image in a topic."
