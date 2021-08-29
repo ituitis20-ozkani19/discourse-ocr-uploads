@@ -2,3 +2,10 @@ plugins:
   discourse_ocr_uploads_enabled:
     default: false
     client: true
+  discourse_ocr_uploads_google_client_id:
+    default: ""
+  discourse_ocr_uploads_google_client_email:
+    default: ""
+  discourse_ocr_uploads_google_private_key:
+    default: ""
+    secret: true
