@@ -2,4 +2,4 @@ en:
   js:
     ocr_uploads:
       title: "OCR Uploads"
-      enable_ocr_uploads: "Perform handwriting OCR on the first image in a topic"
+      enable_ocr_uploads: "Perform handwriting OCR on the images of the first post in a topic"
