@@ -21,7 +21,8 @@ module Jobs
           image_url = "https:#{image_url}" if image_url && image_url =~ /^\/\// # prefix // with https://
           res = annotator.document_text_detection(image: image_url)
           texts.push(res.responses[0].full_text_annotation&.text)
-        rescue
+        rescue => e
+          Rails.logger.error("Error calling Google Cloud API #{e.inspect}")
           next
         end
       end
