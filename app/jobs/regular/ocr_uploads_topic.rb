@@ -2,9 +2,17 @@
 
 module Jobs
   class OcrUploadsTopic < ::Jobs::Base
+    def log(str)
+      if SiteSetting.discourse_ocr_uploads_verbose_logging
+        Rails.logger.warn(str)
+      end
+    end
+
     def execute(args)
       topic = Topic.find(args[:topic_id])
       return unless topic
+
+      log("OCR Plugin: [#{SecureRandom.base64[0,8]}] Processing topic ID #{topic.id}") 
 
       creds = {
         "type": "service_account",
@@ -17,17 +25,23 @@ module Jobs
       texts = []
       topic.posts.first.uploads.each do |upload|
         begin
+          log("OCR Plugin: [#{SecureRandom.base64[0,8]}] Processing upload ID #{upload.sha1}") 
+
           image_url = upload.local? ? Discourse.store.path_for(upload) : upload.url
           image_url = "https:#{image_url}" if image_url && image_url =~ /^\/\// # prefix // with https://
           res = annotator.document_text_detection(image: image_url)
           texts.push(res.responses[0].full_text_annotation&.text)
+
+          log("OCR Plugin: [#{SecureRandom.base64[0,8]}] Processed upload ID #{upload.id}") 
         rescue => e
-          Rails.logger.error("Error calling Google Cloud API #{e.inspect}")
+          Rails.logger.error("OCR Plugin: [#{SecureRandom.base64[0,8]}] Error calling Google Cloud API #{e.inspect}")
           next
         end
       end
 
       if texts.count
+        log("OCR Plugin: [#{SecureRandom.base64[0,8]}] Creating a post in topic #{topic.id}.")
+
         raw = texts.join("\n---\n")
         post = PostCreator.create(
           topic.user,
@@ -37,6 +51,8 @@ module Jobs
         unless post.nil?
           post.save(validate: false)
         end
+      else
+        log("OCR Plugin: [#{SecureRandom.base64[0,8]}] No text found so not creating a post in topic #{topic.id}.")
       end
     end
   end

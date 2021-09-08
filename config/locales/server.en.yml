@@ -4,6 +4,7 @@ en:
     discourse_ocr_uploads_google_client_id: "Google Cloud Platform Client ID"
     discourse_ocr_uploads_google_client_email: "Google Cloud Platform Client Email"
     discourse_ocr_uploads_google_private_key: "Google Cloud Platform Private Key"
+    discourse_ocr_uploads_verbose_logging: "Enable verbose logging."
   ocr_uploads:
     title: "OCR Uploads."
     enable_ocr_uploads: "Perform handwriting OCR on the first image in a topic."

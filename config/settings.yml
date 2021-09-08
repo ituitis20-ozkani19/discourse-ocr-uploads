@@ -9,3 +9,5 @@ plugins:
   discourse_ocr_uploads_google_private_key:
     default: ""
     secret: true
+  discourse_ocr_uploads_verbose_logging:
+    default: false
