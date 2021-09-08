@@ -27,7 +27,8 @@ after_initialize do
   require_dependency File.expand_path('../app/jobs/regular/ocr_uploads_topic.rb', __FILE__)
 
   DiscourseEvent.on(:topic_created) do |topic|
-    return unless SiteSetting.discourse_ocr_uploads_enabled? && topic.category && topic.category.custom_fields['enable_ocr_uploads']&.downcase == 'true'
-    Jobs.enqueue_in(0, :ocr_uploads_topic, topic_id: topic.id)
+    if SiteSetting.discourse_ocr_uploads_enabled? && topic.category && topic.category.custom_fields['enable_ocr_uploads']&.downcase == 'true'
+      Jobs.enqueue_in(0, :ocr_uploads_topic, topic_id: topic.id)
+    end
   end
 end
