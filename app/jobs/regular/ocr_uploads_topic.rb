@@ -30,16 +30,21 @@ module Jobs
           image_url = upload.local? ? Discourse.store.path_for(upload) : upload.url
           image_url = "https:#{image_url}" if image_url && image_url =~ /^\/\// # prefix // with https://
           res = annotator.document_text_detection(image: image_url)
-          texts.push(res.responses[0].full_text_annotation&.text)
 
-          log("OCR Plugin: [#{SecureRandom.base64[0,8]}] Processed upload ID #{upload.id}") 
+          txt = res.responses[0].full_text_annotation&.text
+          if txt.nil? || txt.strip.empty?
+            log("OCR Plugin: [#{SecureRandom.base64[0,8]}] Empty result for upload ID #{upload.id}")
+          else
+            texts.push(txt) 
+            log("OCR Plugin: [#{SecureRandom.base64[0,8]}] Processed upload ID #{upload.id} - #{txt[0,20]}...") 
+          end
         rescue => e
           Rails.logger.error("OCR Plugin: [#{SecureRandom.base64[0,8]}] Error calling Google Cloud API #{e.inspect}")
           next
         end
       end
 
-      if texts.count
+      if texts.count > 0
         log("OCR Plugin: [#{SecureRandom.base64[0,8]}] Creating a post in topic #{topic.id}.")
 
         raw = texts.join("\n---\n")
