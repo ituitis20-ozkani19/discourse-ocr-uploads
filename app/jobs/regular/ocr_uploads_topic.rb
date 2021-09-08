@@ -25,7 +25,7 @@ module Jobs
       texts = []
       topic.posts.first.uploads.each do |upload|
         begin
-          log("OCR Plugin: [#{SecureRandom.base64[0,8]}] Processing upload ID #{upload.sha1}") 
+          log("OCR Plugin: [#{SecureRandom.base64[0,8]}] Processing upload ID #{upload.id}") 
 
           image_url = upload.local? ? Discourse.store.path_for(upload) : upload.url
           image_url = "https:#{image_url}" if image_url && image_url =~ /^\/\// # prefix // with https://
