@@ -7,4 +7,4 @@ en:
     discourse_ocr_uploads_verbose_logging: "Enable verbose logging."
   ocr_uploads:
     title: "OCR Uploads."
-    enable_ocr_uploads: "Perform handwriting OCR on the first image in a topic."
+    enable_ocr_uploads: "Perform OCR on the images in the first post of a topic."

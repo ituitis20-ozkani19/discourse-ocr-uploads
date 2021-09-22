@@ -14,7 +14,7 @@ To install the plugin see https://meta.discourse.org/t/install-a-plugin/19157
 * Copy the value of the `private_key` field into the `discourse ocr uploads google private key` setting. Make sure to remove the surrounding quotes but leave the `-----BEGIN PRIVATE KEY-----` in the beginning and the `-----END PRIVATE KEY-----\n` at the end.
 * Enable the plugin
 
-The plugin can be enabled on a per-category basis. Go to the category settings tab, look for the **OCR Uploads** heading and check **Perform handwriting OCR on the first image in a topic**.
+The plugin can be enabled on a per-category basis. Go to the category settings tab, look for the **OCR Uploads** heading and check **Perform OCR on the images in the first post of a topic**.
 
 ## Usage
 
