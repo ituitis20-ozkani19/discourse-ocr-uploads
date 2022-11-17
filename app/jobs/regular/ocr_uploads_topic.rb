@@ -20,7 +20,9 @@ module Jobs
         "client_email": SiteSetting.discourse_ocr_uploads_google_client_email,
         "client_id": SiteSetting.discourse_ocr_uploads_google_client_id
       }
-      annotator = Google::Cloud::Vision::V1::ImageAnnotator.new(credentials: creds)
+      annotator = Google::Cloud::Vision::V1::ImageAnnotator::Client.new do |config|
+        config.credentials = creds
+      end
 
       texts = []
       topic.posts.first.uploads.each do |upload|
