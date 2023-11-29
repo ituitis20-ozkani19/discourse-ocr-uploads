@@ -6,7 +6,7 @@
 
 gem 'os', '1.1.1', require: true
 gem_platform = OS.linux? ? 'x86_64-linux' : OS.mac? ? 'universal-darwin' : '' # only mac and linux will work
-gem 'google-protobuf', '3.4.0', platform: gem_platform, require: false
+gem 'google-protobuf', '3.25.1', platform: gem_platform, require: false
 gem 'googleapis-common-protos-types', '1.3.1', require: false
 gem 'grpc', '1.50.0', platform: gem_platform, require: false
 gem 'googleapis-common-protos', '1.3.12', require: false
